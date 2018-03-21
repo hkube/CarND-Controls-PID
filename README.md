@@ -1,6 +1,20 @@
 # CarND-Controls-PID
 Self-Driving Car Engineer Nanodegree Program
 
+## Overview
+The objective of this project was to imlplement a PID controller to steer a car in the Udacity's simulator.
+
+## Describe the effect each of the P, I, D components had in your implementation
+If only the P component is used to control the cars steering angle, the car car will drive wavy lines with increasing amplitudes and finally drive off the road.
+The D component lets the car from driving more straight and prevents the wavy lines nearly completely. The car does not leave the track.
+The I component improves the steering of the car when in the curves where it keeps the car more away from the outer curbs. The drawback of the I components is that it will make the steering more sensitive to noisy input data which are occur at both ends of the bridge.
+
+## Describe how the final hyperparameters were chosen.
+Choosing the right hyperparameters is a tricky task because they are known to depend on the parameters of the control loop. In this project the parameters of the control loop depend on the speed of the car. My first step was to imeplement a PD controller to control the speed of the car. Then I tried to find the optimal parameters using the twiddle algorithm which was presented in the lesson. For this I let go the car for 3500 frames, calculated the overall error and reset the simulator. In contrast to what I expected, the overall error was varying from one round to the other. Therefore it was not suitable to be the criterion for the twiddle algorithm and I decided to tuned the hyperparameters manually. 
+Finally, I implemented a algorithm to reduce the setpoint of the speed controller on high cross track errors. This is useful especially in the curves were the car brakes and stays more away from the outer curbs. The maximum speed the car can go on my notebook is about 70 mph.
+
+This video ([M4V](https://www.dropbox.com/s/nqtmfdri90l9kyj/CarND_PID_50mph.m4v?dl=0) or [MP4](https://www.dropbox.com/s/ezzr04udi6fak8x/CarND_PID_50mph.mp4?dl=0)) shows the car driving with up to 50 mph.
+
 ---
 
 ## Dependencies
